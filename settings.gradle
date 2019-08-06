@@ -1,0 +1,2 @@
+rootProject.name = 'cloude'
+include 'common','euraka-server','admin-server','user-service','product'

@@ -1,0 +1,120 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.6.RELEASE'
+    id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.cloud.jiazhongfei'
+
+
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springBootAdminVersion', "2.1.5")
+    set('springCloudVersion', "Greenwich.SR2")
+}
+
+
+allprojects {
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'io.spring.dependency-management'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    ext {
+        springBootVersion = '2.0.3.RELEASE'
+    }
+    // java编译的时候缺省状态下会因为中文字符而失败
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+    repositories {
+        mavenLocal()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        maven { url "https://repo.spring.io/libs-release" }
+        mavenCentral()
+        jcenter()
+    }
+    dependencies{
+        compileOnly 'org.projectlombok:lombok'
+        compile(   'org.springframework.boot:spring-boot-starter-web'){
+            exclude  module: 'spring-boot-starter-tomcat'
+        }
+        compile(
+                'org.springframework.boot:spring-boot-starter',
+                'org.springframework.boot:spring-boot-starter-jetty',
+        )
+
+        testCompile(
+                'org.springframework.boot:spring-boot-starter-test',
+                "junit:junit:4.12"
+        )
+    }
+    dependencyManagement {
+        imports {
+            mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+//    configurations {
+//        all*.exclude module: 'commons-logging'
+//    }
+}
+project(':euraka-server') {
+    
+    dependencies {
+        compile project(":common")
+        compile(
+                'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server',
+        )
+    }
+}
+
+project(':admin-server') {
+    dependencies {
+        compile project(":common")
+        compile group: 'de.codecentric', name: 'spring-boot-admin-starter-server', version: '2.1.5'
+        compile(
+                'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client',
+        )
+    }
+}
+
+project(':user-service') {
+    dependencies {
+        compile project(":common")
+        compile group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version: '2.1.5'
+        compile(
+                'de.codecentric:spring-boot-admin-starter-client',
+                'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client',
+                'org.springframework.cloud:spring-cloud-starter-netflix-ribbon',
+                'org.springframework.cloud:spring-cloud-starter-netflix-zuul',
+        )
+    }
+
+
+}
+project(':product') {
+    dependencies {
+        compile project(":common")
+        compile group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version: '2.1.5'
+        compile(
+                'de.codecentric:spring-boot-admin-starter-client',
+                'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client',
+                'org.springframework.cloud:spring-cloud-starter-netflix-ribbon',
+                'org.springframework.cloud:spring-cloud-starter-netflix-zuul',
+        )
+    }
+
+
+}
