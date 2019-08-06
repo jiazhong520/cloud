@@ -53,6 +53,10 @@ allprojects {
         compile(
                 'org.springframework.boot:spring-boot-starter',
                 'org.springframework.boot:spring-boot-starter-jetty',
+                'org.springframework.cloud:spring-cloud-starter-netflix-ribbon',
+                'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client',
+                'org.springframework.cloud:spring-cloud-starter-openfeign',
+                'org.springframework.cloud:spring-cloud-starter-netflix-hystrix',
         )
 
         testCompile(
@@ -84,9 +88,7 @@ project(':admin-server') {
     dependencies {
         compile project(":common")
         compile group: 'de.codecentric', name: 'spring-boot-admin-starter-server', version: '2.1.5'
-        compile(
-                'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client',
-        )
+
     }
 }
 
@@ -95,10 +97,7 @@ project(':user-service') {
         compile project(":common")
         compile group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version: '2.1.5'
         compile(
-                'de.codecentric:spring-boot-admin-starter-client',
-                'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client',
-                'org.springframework.cloud:spring-cloud-starter-netflix-ribbon',
-                'org.springframework.cloud:spring-cloud-starter-netflix-zuul',
+                'de.codecentric:spring-boot-admin-starter-client'
         )
     }
 
@@ -110,11 +109,15 @@ project(':product') {
         compile group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version: '2.1.5'
         compile(
                 'de.codecentric:spring-boot-admin-starter-client',
-                'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client',
                 'org.springframework.cloud:spring-cloud-starter-netflix-ribbon',
-                'org.springframework.cloud:spring-cloud-starter-netflix-zuul',
         )
     }
-
-
+}
+project(':product') {
+    dependencies {
+        compile project(":common")
+        compile(
+                'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
+        )
+    }
 }

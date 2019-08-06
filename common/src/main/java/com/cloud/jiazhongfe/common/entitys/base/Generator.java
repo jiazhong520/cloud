@@ -1,8 +1,10 @@
 package com.cloud.jiazhongfe.common.entitys.base;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-
+@Data
 public class Generator implements Serializable {
     /**
      * id
