@@ -113,11 +113,11 @@ project(':product') {
         )
     }
 }
-project(':product') {
+project(':zuul-cloud') {
     dependencies {
         compile project(":common")
         compile(
-                'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
+                'org.springframework.cloud:spring-cloud-starter-zuul',
         )
     }
 }
