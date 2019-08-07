@@ -17,7 +17,6 @@ import javax.ws.rs.POST;
 
 
 @SpringBootApplication
-@PropertySource("classpath:config/application-dev.properties")
 @Configuration
 @EnableDiscoveryClient
 @RestController

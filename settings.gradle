@@ -1,2 +1,2 @@
 rootProject.name = 'cloude'
-include 'common','euraka-server','admin-server','user-service','product','zuul-cloud'
+include 'common','euraka-server','admin-server','user-service','product','zuul-cloud','config-server','getwary-cloud'
